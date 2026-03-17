@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div style="column-count:3; column-gap:20px; max-width:1400px; margin:auto;">
+  {{ range .Pages }}
+  <div style="break-inside: avoid; margin-bottom:20px;">
+    <a href="{{ .RelPermalink }}">
+      <img src="{{ .Params.cover.image }}" style="width:100%; border-radius:6px;">
+    </a>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

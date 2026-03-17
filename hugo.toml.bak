@@ -1,0 +1,28 @@
+baseURL = "http://122.51.140.190/"
+languageCode = "zh-cn"
+title = "我的摄影作品集"
+theme = "PaperMod"
+
+[pagination]
+  pagerSize = 12
+
+[params]
+  defaultTheme = "auto"
+  ShowReadingTime = false
+  ShowShareButtons = false
+  ShowPostNavLinks = false
+  ShowBreadCrumbs = false
+  disableSpecial1stPost = true
+  mainSections = ["photos"]
+
+[[menu.main]]
+  identifier = "photos"
+  name = "作品"
+  url = "/photos/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "about"
+  name = "关于"
+  url = "/about/"
+  weight = 20
