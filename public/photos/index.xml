@@ -29,12 +29,5 @@
       <guid>https://mellifluous-fudge-5d83bd.netlify.app/photos/photo-1/</guid>
       <description>&lt;p&gt;这是一组作品说明文字。&lt;/p&gt;</description>
     </item>
-    <item>
-      <title>第一组作品</title>
-      <link>https://mellifluous-fudge-5d83bd.netlify.app/photos/first-shot/</link>
-      <pubDate>Tue, 17 Mar 2026 13:00:00 +0800</pubDate>
-      <guid>https://mellifluous-fudge-5d83bd.netlify.app/photos/first-shot/</guid>
-      <description>&lt;p&gt;这是一张示例作品说明。&lt;/p&gt;</description>
-    </item>
   </channel>
 </rss>

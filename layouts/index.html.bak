@@ -1,29 +1,24 @@
-aDR{{ define "main" }}
+{{ define "main" }}
 
 <p class="page-title">Media Library</p>
 
 <div class="gallery">
-{{ range (where site.RegularPages "Section" "photos").ByDate.Reverse }}
-  {{ $img := .Params.cover.image }}
-  {{ $imgPath := strings.TrimPrefix "/images/" $img }}
-  {{ $image := resources.Get (printf "images/%s" $imgPath) }}
+  {{ range (where site.RegularPages "Section" "photos").ByDate.Reverse }}
+    {{ $img := .Params.cover.image }}
+    <div class="gallery-item" data-src="{{ $img }}">
+      
+      <img loading="lazy" src="{{ $img }}" alt="{{ .Title }}">
 
-  {{ if $image }}
-    {{ $thumb := $image.Resize "1200x webp q80" }}
-    {{ $full := $image.Resize "2000x webp q85" }}
-
-    <div class="gallery-item" data-src="{{ $full.RelPermalink }}">
-      <img loading="lazy" src="{{ $thumb.RelPermalink }}" alt="{{ .Title }}">
-
+      <!-- hover 信息 -->
       <div class="overlay">
         <div class="text">
           <div class="title">{{ .Title }}</div>
           <div class="location">{{ .Params.location }}</div>
         </div>
       </div>
+
     </div>
   {{ end }}
-{{ end }}
 </div>
 
 <div class="fullscreen" id="fullscreen">
