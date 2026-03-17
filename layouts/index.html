@@ -12,8 +12,8 @@ aDR{{ define "main" }}
     {{ $thumb := $image.Resize "1200x webp q80" }}
     {{ $full := $image.Resize "2000x webp q85" }}
 
-    <div class="gallery-item" data-src="{{ $full.RelPermalink }}">
-      <img loading="lazy" src="{{ $thumb.RelPermalink }}" alt="{{ .Title }}">
+    <div class="gallery-item" data-src="{{ site.Params.cdnURL }}{{ $full.RelPermalink }}>
+      <img loading="lazy" src="{{ site.Params.cdnURL }}{{ $thumb.RelPermalink }}" alt="{{ .Title }}">
 
       <div class="overlay">
         <div class="text">
