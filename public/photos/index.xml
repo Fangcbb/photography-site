@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Photos on 我的摄影作品集</title>
-    <link>http://122.51.140.190/photos/</link>
+    <link>https://mellifluous-fudge-5d83bd.netlify.app/photos/</link>
     <description>Recent content in Photos on 我的摄影作品集</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 17 Mar 2026 14:20:00 +0800</lastBuildDate>
-    <atom:link href="http://122.51.140.190/photos/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://mellifluous-fudge-5d83bd.netlify.app/photos/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>作品三</title>
-      <link>http://122.51.140.190/photos/photo-3/</link>
+      <link>https://mellifluous-fudge-5d83bd.netlify.app/photos/photo-3/</link>
       <pubDate>Tue, 17 Mar 2026 14:20:00 +0800</pubDate>
-      <guid>http://122.51.140.190/photos/photo-3/</guid>
+      <guid>https://mellifluous-fudge-5d83bd.netlify.app/photos/photo-3/</guid>
       <description>&lt;p&gt;这是一组作品说明文字。&lt;/p&gt;</description>
     </item>
     <item>
       <title>作品二</title>
-      <link>http://122.51.140.190/photos/photo-2/</link>
+      <link>https://mellifluous-fudge-5d83bd.netlify.app/photos/photo-2/</link>
       <pubDate>Tue, 17 Mar 2026 14:10:00 +0800</pubDate>
-      <guid>http://122.51.140.190/photos/photo-2/</guid>
+      <guid>https://mellifluous-fudge-5d83bd.netlify.app/photos/photo-2/</guid>
       <description>&lt;p&gt;这是一组作品说明文字。&lt;/p&gt;</description>
     </item>
     <item>
       <title>作品一</title>
-      <link>http://122.51.140.190/photos/photo-1/</link>
+      <link>https://mellifluous-fudge-5d83bd.netlify.app/photos/photo-1/</link>
       <pubDate>Tue, 17 Mar 2026 14:00:00 +0800</pubDate>
-      <guid>http://122.51.140.190/photos/photo-1/</guid>
+      <guid>https://mellifluous-fudge-5d83bd.netlify.app/photos/photo-1/</guid>
       <description>&lt;p&gt;这是一组作品说明文字。&lt;/p&gt;</description>
     </item>
     <item>
       <title>第一组作品</title>
-      <link>http://122.51.140.190/photos/first-shot/</link>
+      <link>https://mellifluous-fudge-5d83bd.netlify.app/photos/first-shot/</link>
       <pubDate>Tue, 17 Mar 2026 13:00:00 +0800</pubDate>
-      <guid>http://122.51.140.190/photos/first-shot/</guid>
+      <guid>https://mellifluous-fudge-5d83bd.netlify.app/photos/first-shot/</guid>
       <description>&lt;p&gt;这是一张示例作品说明。&lt;/p&gt;</description>
     </item>
   </channel>

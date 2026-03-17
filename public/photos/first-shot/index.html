@@ -1,184 +1,136 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto" data-theme="auto">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第一组作品 | 我的摄影作品集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"><link rel="icon" type="image/svg+xml" href="/gallery/favicon.svg"><link rel="shortcut icon" href="/gallery/favicon.ico">
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    :root { --bg:#ffffff; --text:#1a1a1a; --text-light:#666666; --gap:35px; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      transition:background .3s,color .3s;
+    }
+    body.dark { --bg:#0a0a0a; --text:#f0f0f0; --text-light:#888888; }
+    a { color:inherit; text-decoration:none; }
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>第一组作品 | 我的摄影作品集</title>
-<meta name="keywords" content="">
-<meta name="description" content="这是一张示例作品说明。">
-<meta name="author" content="">
-<link rel="canonical" href="http://122.51.140.190/photos/first-shot/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://122.51.140.190/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://122.51.140.190/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://122.51.140.190/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://122.51.140.190/apple-touch-icon.png">
-<link rel="mask-icon" href="http://122.51.140.190/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://122.51.140.190/photos/first-shot/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+    header {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      padding:30px 40px;
+      display:flex; justify-content:space-between; align-items:center;
+      background:var(--bg); transition:background .3s;
+    }
+    .logo {
+      font-size:14px; font-weight:500; letter-spacing:.3em; text-transform:uppercase;
+      display:flex; align-items:center;
+    }
+    .logo-img { height:24px; width:auto; display:block; filter:brightness(0); }
+    body.dark .logo-img { filter:brightness(1); }
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-                color-scheme: dark;
-            }
+    nav { display:flex; gap:30px; align-items:center; }
+    nav a, .lang-toggle, .theme-toggle {
+      font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--text-light); background:none; border:none; cursor:pointer;
+    }
+    nav a:hover, nav a.active, .lang-toggle:hover, .theme-toggle:hover { color:var(--text); opacity:1; }
 
-            .list {
-                background: var(--theme);
-            }
+    .menu-item-has-children { position:relative; }
+    .menu-item-has-children > a::after { content:"▼"; font-size:8px; margin-left:5px; }
+    .sub-menu {
+      display:none; position:absolute; top:100%; left:0;
+      background:var(--bg); padding:10px 0; min-width:120px;
+      box-shadow:0 5px 15px rgba(0,0,0,.1); list-style:none;
+    }
+    .menu-item-has-children:hover .sub-menu { display:block; animation:fadeSlideIn .3s ease forwards; }
+    .sub-menu li {
+      opacity:0; transform:translateY(-10px); animation:fadeSlideIn .3s ease forwards; padding:5px 15px;
+    }
+    .sub-menu li:nth-child(1){animation-delay:.05s;}
+    .sub-menu li:nth-child(2){animation-delay:.1s;}
+    .sub-menu li:nth-child(3){animation-delay:.15s;}
+    .sub-menu li:nth-child(4){animation-delay:.2s;}
+    @keyframes fadeSlideIn { to { opacity:1; transform:translateY(0); } }
 
-            .toc {
-                background: var(--entry);
-            }
-        }
+    .hamburger {
+      display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none;
+    }
+    .hamburger span { width:24px; height:2px; background:var(--text); transition:all .3s; }
+    .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+    .hamburger.active span:nth-child(2){opacity:0;}
+    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
 
-        @media (prefers-color-scheme: light) {
-            .list::-webkit-scrollbar-thumb {
-                border-color: var(--code-bg);
-            }
-        }
+    main { padding:100px 40px 60px; max-width:100%; margin:0 auto; }
 
-    </style>
-</noscript>
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else if (localStorage.getItem("pref-theme") === "light") {
-       document.querySelector("html").dataset.theme = 'light';
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else {
-        document.querySelector("html").dataset.theme = 'light';
+    .music-player {
+      position:fixed; right:22px; bottom:22px; z-index:9999;
+      display:flex; flex-direction:column; gap:4px; padding:6px; border-radius:12px;
+      background:rgba(255,255,255,.1); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+    }
+    body.dark .music-player { background:rgba(0,0,0,.15); }
+    .music-toggle, .music-mute {
+      width:32px; height:32px; border:none; border-radius:8px; background:transparent;
+      color:#111; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s;
+    }
+    body.dark .music-toggle, body.dark .music-mute { color:#fff; }
+    .music-toggle:hover, .music-mute:hover { background:rgba(0,0,0,.05); }
+    body.dark .music-toggle:hover, body.dark .music-mute:hover { background:rgba(255,255,255,.1); }
+
+    footer {
+      width:100%; text-align:center; padding:40px 20px 60px; font-size:12px;
+      color:var(--text-light); letter-spacing:.05em;
     }
 
-</script><meta property="og:url" content="http://122.51.140.190/photos/first-shot/">
-  <meta property="og:site_name" content="我的摄影作品集">
-  <meta property="og:title" content="第一组作品">
-  <meta property="og:description" content="这是一张示例作品说明。">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="photos">
-    <meta property="article:published_time" content="2026-03-17T13:00:00+08:00">
-    <meta property="article:modified_time" content="2026-03-17T13:00:00+08:00">
-    <meta property="og:image" content="http://122.51.140.190/images/sample.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://122.51.140.190/images/sample.jpg">
-  <meta name="twitter:title" content="第一组作品">
-  <meta name="twitter:description" content="这是一张示例作品说明。">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Photos",
-      "item": "http://122.51.140.190/photos/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "第一组作品",
-      "item": "http://122.51.140.190/photos/first-shot/"
+    @media (max-width:768px) {
+      header { padding:20px; }
+      .hamburger { display:flex; z-index:101; }
+      nav {
+        position:fixed; top:0; right:-220px; width:220px; height:100vh; background:var(--bg);
+        flex-direction:column; padding:80px 30px 30px; gap:20px; transition:right .3s;
+        box-shadow:-5px 0 20px rgba(0,0,0,.1); z-index:100; align-items:flex-start;
+      }
+      nav.active { right:0; }
+      nav .sub-menu { position:static; display:none; padding-left:15px; box-shadow:none; }
+      nav .menu-item-has-children:hover .sub-menu,
+      nav .menu-item-has-children.active .sub-menu { display:block; }
+      main { padding:90px 20px 50px; }
+      .music-player { right:16px; bottom:16px; }
+      .music-toggle, .music-mute { width:36px; height:36px; }
     }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "第一组作品",
-  "name": "第一组作品",
-  "description": "这是一张示例作品说明。\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "这是一张示例作品说明。\n",
-  "wordCount" : "1",
-  "inLanguage": "en",
-  "image":"http://122.51.140.190/images/sample.jpg","datePublished": "2026-03-17T13:00:00+08:00",
-  "dateModified": "2026-03-17T13:00:00+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "http://122.51.140.190/photos/first-shot/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "我的摄影作品集",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "http://122.51.140.190/favicon.ico"
-    }
-  }
-}
-</script>
+  </style>
 </head>
-<body id="top">
-    <header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="http://122.51.140.190/" accesskey="h" title="我的摄影作品集 (Alt + H)">我的摄影作品集</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="http://122.51.140.190/" title="作品">
-                    <span>作品</span>
-                </a>
-            </li>
-            <li>
-                <a href="http://122.51.140.190/about/" title="关于">
-                    <span>关于</span>
-                </a>
-            </li>
+<body>
+  <header>
+    <a href="/" class="logo">
+        <img src="/gallery/logo.svg" alt="我的摄影作品集" class="logo-img"></a>
+
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+
+    <nav id="site-nav">
+      <div class="menu-item-has-children">
+        <a href="/work/" data-en="WORK" data-zh="作品">WORK</a>
+        <ul class="sub-menu">
+          <li><a href="/portrait/" data-en="Portrait" data-zh="人像">Portrait</a></li>
+          <li><a href="/landscape/" data-en="Landscape" data-zh="风景">Landscape</a></li>
+          <li><a href="/animal/" data-en="Animal" data-zh="动物">Animal</a></li>
+          <li><a href="/thing/" data-en="THING" data-zh="事物">THING</a></li>
         </ul>
+      </div>
+      <a href="/" class="" data-en="Gallery" data-zh="画廊">Gallery</a>
+      <a href="/blog/" data-en="Blog" data-zh="博客">Blog</a>
+      <button class="lang-toggle" onclick="toggleLang()">中</button>
+      <button class="theme-toggle" id="theme-toggle">◐</button>
     </nav>
-</header>
-<main class="main">
+  </header>
+
+  <main>
 
 <article class="photo-single">
   <div class="photo-single-inner">
@@ -285,84 +237,183 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-    </main>
-    
-<footer class="footer">
-        <span>&copy; 2026 <a href="http://122.51.140.190/">我的摄影作品集</a></span> · 
+  </main>
 
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
+  <div id="music-player" class="music-player">
+    <button id="music-toggle" class="music-toggle" title="播放/暂停">
+      <span class="icon icon-play" id="icon-play">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M8 5.5v13l10-6.5-10-6.5z" fill="currentColor"></path></svg>
+      </span>
+      <span class="icon icon-pause" id="icon-pause" style="display:none;">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"></path></svg>
+      </span>
+    </button>
+    <button id="music-mute" class="music-mute" title="静音/取消静音">
+      <span class="icon icon-volume" id="icon-volume">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 5.23v13.54a1 1 0 0 1-1.64.77L7.7 16H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3.7l4.66-3.54A1 1 0 0 1 14 5.23z" fill="currentColor"></path></svg>
+      </span>
+      <span class="icon icon-muted" id="icon-muted" style="display:none;">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M14 5.23v13.54a1 1 0 0 1-1.64.77L7.7 16H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3.7l4.66-3.54A1 1 0 0 1 14 5.23z" fill="currentColor"></path><path d="M18.71 8.29a1 1 0 0 1 0 1.42L17.41 11l1.3 1.29a1 1 0 0 1-1.41 1.42L16 12.41l-1.29 1.3a1 1 0 1 1-1.42-1.41l1.3-1.3-1.3-1.29a1 1 0 0 1 1.42-1.42L16 9.59l1.29-1.3a1 1 0 0 1 1.42 0z" fill="currentColor"></path></svg>
+      </span>
+    </button>
+    <audio id="bg-music" src="" loop preload="auto" playsinline></audio>
+  </div>
 
-<script>
-    let menu = document.getElementById('menu');
-    if (menu) {
-        
-        const scrollPosition = localStorage.getItem("menu-scroll-position");
-        if (scrollPosition) {
-            menu.scrollLeft = parseInt(scrollPosition, 10);
-        }
-        
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+  <footer>
+    All photography © Copyright 我的摄影作品集 2026. No unauthorised use.
+     For all enquiries please email -
+    <a href="mailto:fangbing1@hfcmi.com" style="color:var(--text-light);text-decoration:underline;">fangbing1@hfcmi.com</a>
+  </footer>
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => e.preventDefault());
 
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+    document.getElementById('theme-toggle').onclick = () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
     };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        const html = document.querySelector("html");
-        if (html.dataset.theme === "dark") {
-            html.dataset.theme = 'light';
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            html.dataset.theme = 'dark';
-            localStorage.setItem("pref-theme", 'dark');
+    function toggleMenu(){
+      document.getElementById('site-nav').classList.toggle('active');
+      document.querySelector('.hamburger').classList.toggle('active');
+    }
+
+    const firstMenuLink = document.querySelector('.menu-item-has-children > a');
+    if (firstMenuLink) {
+      firstMenuLink.addEventListener('click', function(e){
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          this.parentElement.classList.toggle('active');
         }
-    })
+      });
+    }
 
-</script>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    function toggleLang(){
+      const t = document.querySelector('.lang-toggle');
+      const isZh = t.textContent.trim() === '中';
+      document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+        el.textContent = isZh ? el.dataset.zh : el.dataset.en;
+      });
+      t.textContent = isZh ? 'EN' : '中';
+      localStorage.setItem('site_lang', isZh ? 'zh' : 'en');
+    }
+
+    (function(){
+      const savedLang = localStorage.getItem('site_lang');
+      if (savedLang === 'zh') return;
+      if (savedLang === 'en') {
+        document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+          el.textContent = el.dataset.en;
+        });
+        const t = document.querySelector('.lang-toggle');
+        if (t) t.textContent = 'EN';
+      }
+    })();
+
+    (function(){
+      const audio = document.getElementById('bg-music');
+      if (!audio) return;
+
+      const tracks = ["\/music\/1.mp3","\/music\/2.mp3"];
+
+      if (!tracks.length) return;
+
+      audio.src = tracks[Math.floor(Math.random()*tracks.length)];
+
+      const toggleBtn = document.getElementById('music-toggle');
+      const muteBtn = document.getElementById('music-mute');
+      const iconPlay = document.getElementById('icon-play');
+      const iconPause = document.getElementById('icon-pause');
+      const iconVolume = document.getElementById('icon-volume');
+      const iconMuted = document.getElementById('icon-muted');
+      const STORAGE_KEY = 'site_music_state_v1';
+      const VOLUME_KEY = 'site_music_volume_v1';
+      const defaultVolume = 0.35;
+      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const savedVolume = parseFloat(localStorage.getItem(VOLUME_KEY));
+      audio.volume = Number.isFinite(savedVolume) ? savedVolume : defaultVolume;
+
+      let hasUserInteracted = false;
+
+      function updatePlayUI(isPlaying){
+        iconPlay.style.display = isPlaying ? 'none' : 'inline-flex';
+        iconPause.style.display = isPlaying ? 'inline-flex' : 'none';
+      }
+
+      function updateMuteUI(isMuted){
+        iconVolume.style.display = isMuted ? 'none' : 'inline-flex';
+        iconMuted.style.display = isMuted ? 'inline-flex' : 'none';
+      }
+
+      function saveState(){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ playing: !audio.paused, muted: audio.muted }));
+        localStorage.setItem(VOLUME_KEY, String(audio.volume));
+      }
+
+      async function tryAutoPlay(){
+        audio.muted = typeof savedState.muted === 'boolean' ? savedState.muted : false;
+        updateMuteUI(audio.muted);
+        const shouldResume = savedState.playing !== false;
+        if (!shouldResume) { updatePlayUI(false); return; }
+        try {
+          await audio.play();
+          updatePlayUI(true);
+          saveState();
+        } catch(e) {
+          updatePlayUI(false);
+        }
+      }
+
+      function startWithSoundAfterInteraction(){
+        if (hasUserInteracted) return;
+        hasUserInteracted = true;
+        if (savedState.playing !== false) {
+          audio.play().then(() => {
+            updatePlayUI(true);
+            saveState();
+          }).catch(()=>{});
+        }
+      }
+
+      toggleBtn.addEventListener('click', async () => {
+        if (audio.paused) {
+          try { await audio.play(); updatePlayUI(true); } catch(e){}
+        } else {
+          audio.pause();
+          updatePlayUI(false);
+        }
+        saveState();
+      });
+
+      muteBtn.addEventListener('click', () => {
+        audio.muted = !audio.muted;
+        updateMuteUI(audio.muted);
+        saveState();
+      });
+
+      audio.addEventListener('play', () => { updatePlayUI(true); saveState(); });
+      audio.addEventListener('pause', () => { updatePlayUI(false); saveState(); });
+
+      ['click','touchstart','scroll','keydown'].forEach(ev => {
+        window.addEventListener(ev, startWithSoundAfterInteraction, { once:true, passive:true });
+      });
+
+      updatePlayUI(false);
+      updateMuteUI(audio.muted);
+      tryAutoPlay();
+    })();
+
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
 </body>
-
-</html>
+</html>`H;`H;`H;aH;`H;
