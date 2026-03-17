@@ -1,142 +1,172 @@
 {{ define "main" }}
-<p class="page-title" data-en="Media Library" data-zh="媒体库">Media Library</p>
+
+<p class="page-title">Media Library</p>
 
 <div class="gallery" id="gallery">
   {{ range (where site.RegularPages "Section" "photos").ByWeight }}
-    {{ $img := .Params.cover.image | default .Params.image }}
-    {{ if $img }}
-      <div class="gallery-item"
-           data-src="{{ $img | relURL }}"
-           data-title="{{ .Title }}"
-           data-location="{{ .Params.location | default `` }}">
-        <img loading="lazy" src="{{ $img | relURL }}" alt="{{ .Title }}">
+    {{ $img := .Params.cover.image }}
+    <div class="gallery-item"
+         data-src="{{ $img }}"
+         data-title="{{ .Title }}"
+         data-location="{{ .Params.location }}">
+         
+      <img loading="lazy" src="{{ $img }}" alt="{{ .Title }}">
+
+      <!-- hover 信息 -->
+      <div class="overlay">
+        <div class="overlay-text">
+          <div class="title">{{ .Title }}</div>
+          <div class="location">{{ .Params.location }}</div>
+        </div>
       </div>
-    {{ end }}
+
+    </div>
   {{ end }}
 </div>
 
+<!-- 全屏 -->
 <div class="fullscreen" id="fullscreen">
   <span class="fullscreen-close" onclick="closeFullscreen()">&times;</span>
-  <img id="fullscreen-img" src="" alt="Fullscreen">
-  <div class="zoom-hint">滚轮缩放 · 双击还原</div>
+  <img id="fullscreen-img" src="">
 </div>
 
 <style>
+
 .page-title {
-  font-size:12px; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--text-light); margin-bottom:40px;
+  font-size:12px;
+  letter-spacing:.2em;
+  color:#888;
+  margin-bottom:40px;
 }
-.gallery { column-count:3; column-gap:35px; }
+
+/* 瀑布流 */
+.gallery {
+  column-count:3;
+  column-gap:35px;
+}
+
 .gallery-item {
-  break-inside:avoid; margin-bottom:35px; cursor:pointer; overflow:hidden;
-  border-radius:2px; pointer-events:auto; position:relative;
+  position:relative;
+  break-inside:avoid;
+  margin-bottom:35px;
+  cursor:pointer;
+  overflow:hidden;
 }
+
+/* 图片动画 */
 .gallery-item img {
-  width:100%; display:block; transition:transform .3s ease; pointer-events:auto;
+  width:100%;
+  display:block;
+  opacity:0;
+  transform:scale(1.05);
+  transition:all .6s ease;
 }
-.gallery-item:hover img { transform:scale(1.05); }
 
+.gallery-item img.loaded {
+  opacity:1;
+  transform:scale(1);
+}
+
+/* hover overlay */
+.overlay {
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+  opacity:0;
+  transition:.3s;
+  display:flex;
+  align-items:flex-end;
+  padding:20px;
+}
+
+.gallery-item:hover .overlay {
+  opacity:1;
+}
+
+.overlay-text {
+  color:white;
+}
+
+.title {
+  font-size:14px;
+  font-weight:500;
+}
+
+.location {
+  font-size:12px;
+  opacity:0.7;
+}
+
+/* 全屏 */
 .fullscreen {
-  display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:1000;
-  justify-content:center; align-items:center;
-  background:rgba(255,255,255,.85);
-  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
 }
-body.dark .fullscreen { background:rgba(0,0,0,.85); }
-.fullscreen.active { display:flex; }
-.fullscreen img {
-  max-width:calc(90vw - 20px); max-height:calc(90vh - 20px); object-fit:contain;
-  border:15px solid #fff; box-shadow:0 20px 60px rgba(0,0,0,.3);
-  border-radius:2px; transition:transform .15s ease; cursor:move;
-}
-body.dark .fullscreen img { border-color:#fff; }
-.fullscreen-close {
-  position:absolute; top:30px; right:40px; font-size:40px; cursor:pointer;
-  color:var(--text); opacity:.6; transition:opacity .3s; z-index:1001;
-}
-.fullscreen-close:hover { opacity:1; }
-.zoom-hint {
-  position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
-  font-size:12px; color:var(--text-light); background:rgba(255,255,255,.8);
-  padding:8px 16px; border-radius:20px; opacity:0; transition:opacity .3s;
-}
-.fullscreen.active .zoom-hint { opacity:1; }
 
-@media (max-width:1200px) { .gallery { column-count:3; } }
-@media (max-width:800px) { .gallery { column-count:2; } }
-@media (max-width:500px) { .gallery { column-count:1; } }
+.fullscreen.active {
+  display:flex;
+}
+
+.fullscreen img {
+  max-width:90%;
+  max-height:90%;
+}
+
+.fullscreen-close {
+  position:absolute;
+  top:30px;
+  right:40px;
+  font-size:40px;
+  color:white;
+  cursor:pointer;
+}
+
+/* 响应式 */
+@media (max-width:800px){
+  .gallery { column-count:2; }
+}
+@media (max-width:500px){
+  .gallery { column-count:1; }
+}
+
 </style>
 
 <script>
+
+const images = document.querySelectorAll('.gallery-item img');
+
+// 图片加载动画
+images.forEach(img=>{
+  img.onload = () => {
+    img.classList.add('loaded');
+  }
+});
+
+// 点击放大
 const fullscreen = document.getElementById('fullscreen');
 const fullscreenImg = document.getElementById('fullscreen-img');
-let scale = 1, isDragging = false, startX, startY, imgX = 0, imgY = 0;
 
-document.querySelectorAll('.gallery-item').forEach(item => {
-  item.addEventListener('click', () => {
+document.querySelectorAll('.gallery-item').forEach(item=>{
+  item.onclick = ()=>{
     fullscreenImg.src = item.dataset.src;
     fullscreen.classList.add('active');
-    resetZoom();
-  });
+  }
 });
 
 function closeFullscreen(){
   fullscreen.classList.remove('active');
-  resetZoom();
 }
 
-function resetZoom(){
-  scale = 1;
-  imgX = 0;
-  imgY = 0;
-  fullscreenImg.style.transform = 'translate(0,0) scale(1)';
-}
-
-function updateTransform(){
-  fullscreenImg.style.transform = `translate(${imgX}px,${imgY}px) scale(${scale})`;
-}
-
-fullscreen.addEventListener('wheel', e => {
-  e.preventDefault();
-  const delta = e.deltaY > 0 ? 0.9 : 1.1;
-  scale = Math.min(Math.max(scale * delta, 0.5), 4);
-  if (scale <= 1) { imgX = 0; imgY = 0; }
-  updateTransform();
-}, { passive:false });
-
-fullscreenImg.addEventListener('dblclick', resetZoom);
-
-fullscreenImg.addEventListener('mousedown', e => {
-  if (scale > 1) {
-    isDragging = true;
-    startX = e.clientX - imgX;
-    startY = e.clientY - imgY;
-    fullscreenImg.style.cursor = 'grabbing';
-  }
+// ESC关闭
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape') closeFullscreen();
 });
 
-document.addEventListener('mousemove', e => {
-  if (!isDragging || scale <= 1) return;
-  imgX = e.clientX - startX;
-  imgY = e.clientY - startY;
-  const maxX = (scale - 1) * fullscreenImg.width / 2;
-  const maxY = (scale - 1) * fullscreenImg.height / 2;
-  imgX = Math.min(maxX, Math.max(-maxX, imgX));
-  imgY = Math.min(maxY, Math.max(-maxY, imgY));
-  updateTransform();
-});
-
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-  fullscreenImg.style.cursor = scale > 1 ? 'grab' : 'move';
-});
-
-fullscreen.addEventListener('click', e => {
-  if (e.target === fullscreen) closeFullscreen();
-});
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeFullscreen();
-});
 </script>
+
 {{ end }}
