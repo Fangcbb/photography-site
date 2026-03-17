@@ -1,4 +1,4 @@
-a54backend:
+backend:
   name: git-gateway
   branch: main
 
@@ -8,9 +8,11 @@ public_folder: "/images"
 collections:
   - name: "photos"
     label: "摄影作品"
+    label_singular: "作品"
     folder: "content/photos"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}}"
     fields:
       - { label: "标题", name: "title", widget: "string" }
       - { label: "发布日期", name: "date", widget: "datetime" }
@@ -24,3 +26,14 @@ collections:
           - { label: "图片", name: "image", widget: "image" }
           - { label: "说明", name: "alt", widget: "string", required: false }
       - { label: "正文", name: "body", widget: "markdown", required: false }
+
+  - name: "pages"
+    label: "页面"
+    files:
+      - label: "关于"
+        name: "about"
+        file: "content/about.md"
+        fields:
+          - { label: "标题", name: "title", widget: "string" }
+          - { label: "草稿", name: "draft", widget: "boolean", default: false }
+          - { label: "正文", name: "body", widget: "markdown" }
