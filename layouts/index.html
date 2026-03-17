@@ -2,19 +2,16 @@
 
 <p class="page-title">Media Library</p>
 
-<div class="gallery" id="gallery">
-  {{ range (where site.RegularPages "Section" "photos").ByWeight }}
+<div class="gallery">
+  {{ range (where site.RegularPages "Section" "photos").ByDate.Reverse }}
     {{ $img := .Params.cover.image }}
-    <div class="gallery-item"
-         data-src="{{ $img }}"
-         data-title="{{ .Title }}"
-         data-location="{{ .Params.location }}">
-         
+    <div class="gallery-item" data-src="{{ $img }}">
+      
       <img loading="lazy" src="{{ $img }}" alt="{{ .Title }}">
 
       <!-- hover 信息 -->
       <div class="overlay">
-        <div class="overlay-text">
+        <div class="text">
           <div class="title">{{ .Title }}</div>
           <div class="location">{{ .Params.location }}</div>
         </div>
@@ -24,20 +21,12 @@
   {{ end }}
 </div>
 
-<!-- 全屏 -->
 <div class="fullscreen" id="fullscreen">
-  <span class="fullscreen-close" onclick="closeFullscreen()">&times;</span>
-  <img id="fullscreen-img" src="">
+  <span class="close" onclick="closeFullscreen()">&times;</span>
+  <img id="fullscreen-img">
 </div>
 
 <style>
-
-.page-title {
-  font-size:12px;
-  letter-spacing:.2em;
-  color:#888;
-  margin-bottom:40px;
-}
 
 /* 瀑布流 */
 .gallery {
@@ -45,29 +34,25 @@
   column-gap:35px;
 }
 
+/* 图片 */
 .gallery-item {
-  position:relative;
   break-inside:avoid;
   margin-bottom:35px;
+  position:relative;
   cursor:pointer;
-  overflow:hidden;
 }
 
-/* 图片动画 */
 .gallery-item img {
   width:100%;
   display:block;
-  opacity:0;
+  transition:all .5s ease;
+}
+
+.gallery-item:hover img {
   transform:scale(1.05);
-  transition:all .6s ease;
 }
 
-.gallery-item img.loaded {
-  opacity:1;
-  transform:scale(1);
-}
-
-/* hover overlay */
+/* hover */
 .overlay {
   position:absolute;
   inset:0;
@@ -83,18 +68,17 @@
   opacity:1;
 }
 
-.overlay-text {
+.text {
   color:white;
 }
 
 .title {
   font-size:14px;
-  font-weight:500;
 }
 
 .location {
   font-size:12px;
-  opacity:0.7;
+  opacity:.7;
 }
 
 /* 全屏 */
@@ -117,7 +101,7 @@
   max-height:90%;
 }
 
-.fullscreen-close {
+.close {
   position:absolute;
   top:30px;
   right:40px;
@@ -126,28 +110,10 @@
   cursor:pointer;
 }
 
-/* 响应式 */
-@media (max-width:800px){
-  .gallery { column-count:2; }
-}
-@media (max-width:500px){
-  .gallery { column-count:1; }
-}
-
 </style>
 
 <script>
 
-const images = document.querySelectorAll('.gallery-item img');
-
-// 图片加载动画
-images.forEach(img=>{
-  img.onload = () => {
-    img.classList.add('loaded');
-  }
-});
-
-// 点击放大
 const fullscreen = document.getElementById('fullscreen');
 const fullscreenImg = document.getElementById('fullscreen-img');
 
@@ -161,11 +127,6 @@ document.querySelectorAll('.gallery-item').forEach(item=>{
 function closeFullscreen(){
   fullscreen.classList.remove('active');
 }
-
-// ESC关闭
-document.addEventListener('keydown', e=>{
-  if(e.key === 'Escape') closeFullscreen();
-});
 
 </script>
 

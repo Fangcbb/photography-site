@@ -135,19 +135,16 @@
 
 <p class="page-title">Media Library</p>
 
-<div class="gallery" id="gallery">
+<div class="gallery">
   
     
-    <div class="gallery-item"
-         data-src="/images/photo3.jpg"
-         data-title="作品三"
-         data-location="Shanghai">
-         
+    <div class="gallery-item" data-src="/images/photo3.jpg">
+      
       <img loading="lazy" src="/images/photo3.jpg" alt="作品三">
 
       
       <div class="overlay">
-        <div class="overlay-text">
+        <div class="text">
           <div class="title">作品三</div>
           <div class="location">Shanghai</div>
         </div>
@@ -156,16 +153,13 @@
     </div>
   
     
-    <div class="gallery-item"
-         data-src="/images/photo2.jpg"
-         data-title="作品二"
-         data-location="Tokyo">
-         
+    <div class="gallery-item" data-src="/images/photo2.jpg">
+      
       <img loading="lazy" src="/images/photo2.jpg" alt="作品二">
 
       
       <div class="overlay">
-        <div class="overlay-text">
+        <div class="text">
           <div class="title">作品二</div>
           <div class="location">Tokyo</div>
         </div>
@@ -174,16 +168,13 @@
     </div>
   
     
-    <div class="gallery-item"
-         data-src="/images/photo1.jpg"
-         data-title="作品一"
-         data-location="Singapore">
-         
+    <div class="gallery-item" data-src="/images/photo1.jpg">
+      
       <img loading="lazy" src="/images/photo1.jpg" alt="作品一">
 
       
       <div class="overlay">
-        <div class="overlay-text">
+        <div class="text">
           <div class="title">作品一</div>
           <div class="location">Singapore</div>
         </div>
@@ -192,16 +183,13 @@
     </div>
   
     
-    <div class="gallery-item"
-         data-src="/images/sample.jpg"
-         data-title="第一组作品"
-         data-location="">
-         
+    <div class="gallery-item" data-src="/images/sample.jpg">
+      
       <img loading="lazy" src="/images/sample.jpg" alt="第一组作品">
 
       
       <div class="overlay">
-        <div class="overlay-text">
+        <div class="text">
           <div class="title">第一组作品</div>
           <div class="location"></div>
         </div>
@@ -211,20 +199,12 @@
   
 </div>
 
-
 <div class="fullscreen" id="fullscreen">
-  <span class="fullscreen-close" onclick="closeFullscreen()">&times;</span>
-  <img id="fullscreen-img" src="">
+  <span class="close" onclick="closeFullscreen()">&times;</span>
+  <img id="fullscreen-img">
 </div>
 
 <style>
-
-.page-title {
-  font-size:12px;
-  letter-spacing:.2em;
-  color:#888;
-  margin-bottom:40px;
-}
 
  
 .gallery {
@@ -232,26 +212,22 @@
   column-gap:35px;
 }
 
+ 
 .gallery-item {
-  position:relative;
   break-inside:avoid;
   margin-bottom:35px;
+  position:relative;
   cursor:pointer;
-  overflow:hidden;
 }
 
- 
 .gallery-item img {
   width:100%;
   display:block;
-  opacity:0;
-  transform:scale(1.05);
-  transition:all .6s ease;
+  transition:all .5s ease;
 }
 
-.gallery-item img.loaded {
-  opacity:1;
-  transform:scale(1);
+.gallery-item:hover img {
+  transform:scale(1.05);
 }
 
  
@@ -270,18 +246,17 @@
   opacity:1;
 }
 
-.overlay-text {
+.text {
   color:white;
 }
 
 .title {
   font-size:14px;
-  font-weight:500;
 }
 
 .location {
   font-size:12px;
-  opacity:0.7;
+  opacity:.7;
 }
 
  
@@ -304,7 +279,7 @@
   max-height:90%;
 }
 
-.fullscreen-close {
+.close {
   position:absolute;
   top:30px;
   right:40px;
@@ -313,27 +288,9 @@
   cursor:pointer;
 }
 
- 
-@media (max-width:800px){
-  .gallery { column-count:2; }
-}
-@media (max-width:500px){
-  .gallery { column-count:1; }
-}
-
 </style>
 
 <script>
-
-const images = document.querySelectorAll('.gallery-item img');
-
-
-images.forEach(img=>{
-  img.onload = () => {
-    img.classList.add('loaded');
-  }
-});
-
 
 const fullscreen = document.getElementById('fullscreen');
 const fullscreenImg = document.getElementById('fullscreen-img');
@@ -348,11 +305,6 @@ document.querySelectorAll('.gallery-item').forEach(item=>{
 function closeFullscreen(){
   fullscreen.classList.remove('active');
 }
-
-
-document.addEventListener('keydown', e=>{
-  if(e.key === 'Escape') closeFullscreen();
-});
 
 </script>
 
