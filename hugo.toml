@@ -1,4 +1,4 @@
-baseURL = "https://mellifluous-fudge-5d83bd.netlify.app/"
+baseURL = "https://fangc.cc/"
 languageCode = "zh-cn"
 title = "我的摄影作品集"
 theme = "PaperMod"
@@ -17,18 +17,16 @@ theme = "PaperMod"
   disableSpecial1stPost = true
   mainSections = ["photos"]
 
-  # 👇 你这套高级首页用到的配置
   logo = "/gallery/logo.svg"
   faviconSvg = "/gallery/favicon.svg"
   faviconIco = "/gallery/favicon.ico"
 
-  # 👉 这里改成站内（推荐）
   blogUrl = "/blog/"
-
   contactEmail = "fangbing1@hfcmi.com"
-
-  # 👉 音乐播放器（可以先留着）
   musicTracks = ["/music/1.mp3", "/music/2.mp3"]
+
+  # 图片 CDN 域名，后面模板里会用到
+  cdnURL = "https://cdn.fangc.cc"
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]

@@ -3,7 +3,7 @@ backend:
   branch: main
 
 media_folder: "assets/images"
-public_folder: "/images"
+public_folder: "https://fangc.cc"
 
 collections:
   - name: "photos"
@@ -19,7 +19,7 @@ collections:
       - { label: "地点", name: "location", widget: "string", required: false }
       - { label: "排序", name: "weight", widget: "number", default: 1, required: false }
       - { label: "草稿", name: "draft", widget: "boolean", default: false }
-      - label: "封面图"
+a=3`<3      - label: "封面图"
         name: "cover"
         widget: "object"
         fields:
